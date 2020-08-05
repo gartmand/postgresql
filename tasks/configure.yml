@@ -109,6 +109,7 @@
     {% if postgresql_wal_directory != "" and postgresql_version is version_compare('10', '>=') %}--waldir={{ postgresql_wal_directory }} {% endif %}
   become: yes
   become_user: "{{ postgresql_service_user }}"
+  become_method: su
   when: ansible_os_family == "RedHat" and
         (postgresql_cluster_reset or
          pgdata_dir_exist.changed or
